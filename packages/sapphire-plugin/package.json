@@ -1,0 +1,57 @@
+{
+  "name": "@statcord-ts/sapphire-plugin",
+  "version": "0.0.1",
+  "description": "A starter for creating a TypeScript package.",
+  "homepage": "https://github.com/author/library#readme",
+  "bugs": {
+    "url": "https://github.com/author/library/issues"
+  },
+  "license": "MIT",
+  "author": "Author Name <author.name@mail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/author/library.git"
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./register": "./dist/register.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "release": "bumpp",
+    "prepublishOnly": "bun run build"
+  },
+  "dependencies": {
+    "@sapphire/timestamp": "^1.0.5",
+    "@statcord-ts/core": "workspace:^",
+    "@statcord-ts/plugin-options": "workspace:^",
+    "node-os-utils": "^3.1.0"
+  },
+  "devDependencies": {
+    "@sapphire/framework": "^5",
+    "@sapphire/pieces": "^4.4.1",
+    "@types/node": "^26.1.1",
+    "bumpp": "^11.1.0",
+    "discord.js": "^14",
+    "tsdown": "^0.23",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.4"
+  },
+  "peerDependencies": {
+    "@sapphire/framework": "^5",
+    "@sapphire/pieces": "^4",
+    "discord.js": "^14"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "@statcord-ts/core",
+  "version": "0.0.1",
+  "description": "A package for Statcord that doesn't have type errors or ts-ignore - fully typed and developer-friendly.",
+  "homepage": "https://github.com/author/library#readme",
+  "bugs": {
+    "url": "https://github.com/author/library/issues"
+  },
+  "license": "MIT",
+  "author": "Author Name <author.name@mail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/author/library.git"
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "release": "bumpp",
+    "prepublishOnly": "bun run build"
+  },
+  "dependencies": {
+    "@sapphire/timestamp": "^1.0.5",
+    "envapt": "^8.2.3",
+    "ky": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "bumpp": "^11.1.0",
+    "tsdown": "^0.23",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.4"
+  }
+}
