@@ -3,3 +3,8 @@
 **/*.log
 **/.DS_Store
 **/.vitest
+**/coverage
+**/.vitepress/cache
+
+# Generated API documentation
+**/docs/api

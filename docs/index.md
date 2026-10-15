@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "Statcord.ts"
-  text: "A package for Statcord that doesn't have type errors or ts-ignore"
+  text: "Take control over the stats of your bot"
   tagline: My great project tagline
   actions:
     - theme: brand

@@ -1,4 +1,4 @@
-interface StatcordAutopostingOptions {
+export interface StatcordAutopostingOptions {
   /**
    * Whether autoposting is enabled. Defaults to false.
    */

@@ -1,5 +1,6 @@
 export { createStatcordPayloadBuilder, createStatcordChartBuilder, createStatcordCommandBuilder } from './helpers'
-export type { StatcordChart, StatcordCommand, StatcordStatsPayload } from './payloads'
+export { StatcordChartBuilder, StatcordCommandBuilder, StatcordPayloadBuilder } from './builders'
+export type { StatcordChart, StatcordCommand, StatcordErrorResponse, StatcordStatsPayload } from './payloads'
 
 import { Time } from '@sapphire/timestamp'
 import { Converters, Envapter } from 'envapt'
@@ -14,7 +15,7 @@ export class Statcord {
   readonly #ky: ReturnType<(typeof ky)['create']>
 
   /**
-   * Creates a new instance of the Statcord client.
+   * Creates a new instance of the {@link Statcord} client.
    * @param botId The ID of your bot.
    * @param apiKey The API key for authenticating with the Statcord API, this can either be passed in or will be read from the `STATCORD_API_KEY` environment variable if not provided.
    * @param httpTimeout A timeout for HTTP requests, in milliseconds. Defaults to 30 seconds.
@@ -50,7 +51,12 @@ export class Statcord {
     return createStatcordPayloadBuilder()
   }
 
+  /**
+   * Sends a payload to the Statcord API
+   * @param payload The payload containing the bot's statistics.
+   * @returns A promise that resolves to either `undefined` if the request was successful or a {@link StatcordErrorResponse} if an error occurred.
+   */
   public async postStats(payload: StatcordStatsPayload) {
-    return this.#ky.post<undefined | StatcordErrorResponse>(`/bots/${this.botId}/stats`, { json: payload })
+    return this.#ky.post<undefined | StatcordErrorResponse>(`/bots/${this.botId}/stats`, { json: payload }).json()
   }
 }

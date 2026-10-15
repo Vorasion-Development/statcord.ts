@@ -5,7 +5,7 @@ import { Statcord, type StatcordChart, type StatcordCommand } from '@statcord-ts
 import type { StatcordPluginOptions } from '@statcord-ts/plugin-options'
 import { OSUtils } from 'node-os-utils'
 
-interface SeedcordStatcordPluginOptions extends StatcordPluginOptions {
+export interface SeedcordStatcordPluginOptions extends StatcordPluginOptions {
   allowGuildCommands?: boolean
 }
 
