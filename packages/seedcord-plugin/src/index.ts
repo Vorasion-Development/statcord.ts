@@ -11,7 +11,7 @@ export interface SeedcordStatcordPluginOptions extends StatcordPluginOptions {
 
 export class StatcordPlugin extends Plugin {
   declare private client: Statcord
-  #acceptedInteractionKinds: InteractionKind[] = [
+  #acceptedInteractionKinds: `${InteractionKind}`[] = [
     InteractionKind.MessageContextMenu,
     InteractionKind.Slash,
     InteractionKind.UserContextMenu,
@@ -150,7 +150,7 @@ export class StatcordPlugin extends Plugin {
   }
 
   private handleCommandInteraction({ kind, outcome, routeId }: SubscriptionData<'interactionDispatched'>) {
-    if (!this.#acceptedInteractionKinds.includes(kind as InteractionKind) || outcome === 'failed') return
+    if (!this.#acceptedInteractionKinds.includes(kind) || outcome === 'failed') return
 
     const command = this.commands.get(this.getCommandName(routeId))
 
