@@ -158,8 +158,10 @@ export class StatcordPlugin extends Plugin {
   }
 
   private getCommandName(routeId: string) {
-    const end = routeId.indexOf('/')
-    return end === -1 ? routeId : routeId.slice(0, end)
+    const name = routeId.slice(routeId.indexOf(':') + 1)
+    const end = name.indexOf('/')
+
+    return end === -1 ? name : name.slice(0, end)
   }
 
   private getCpuUsage() {
