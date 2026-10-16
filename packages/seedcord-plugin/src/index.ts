@@ -1,6 +1,6 @@
 import os from 'node:os'
 
-import { type CoreBase, Plugin, type SubscriptionData } from '@seedcord/gateway'
+import { type CoreBase, InteractionKind, Plugin, type SubscriptionData } from '@seedcord/gateway'
 import { Statcord, type StatcordChart, type StatcordCommand } from '@statcord-ts/core'
 import type { StatcordPluginOptions } from '@statcord-ts/plugin-options'
 import { OSUtils } from 'node-os-utils'
@@ -11,6 +11,11 @@ export interface SeedcordStatcordPluginOptions extends StatcordPluginOptions {
 
 export class StatcordPlugin extends Plugin {
   declare private client: Statcord
+  #acceptedInteractionKinds: InteractionKind[] = [
+    InteractionKind.MessageContextMenu,
+    InteractionKind.Slash,
+    InteractionKind.UserContextMenu,
+  ]
   #autopostingInterval: NodeJS.Timeout | null = null
   #osUtils: OSUtils = new OSUtils()
 
@@ -38,8 +43,10 @@ export class StatcordPlugin extends Plugin {
 
   override init(): Promise<void> {
     this.logger.info('Statcord plugin initialized.')
+
     this.core.bus.on('commandsDeployed', (event) => this.addDeployedCommandsToCommands(event))
-    this.core.bus.on('anyInteraction', (event) => this.handleCommandInteraction(event))
+    this.core.bus.on('interactionDispatched', (event) => this.handleCommandInteraction(event))
+
     return Promise.resolve()
   }
 
@@ -142,18 +149,24 @@ export class StatcordPlugin extends Plugin {
     }
   }
 
-  private handleCommandInteraction({ interaction }: SubscriptionData<'anyInteraction'>) {
-    if (!interaction.isCommand()) return
+  private handleCommandInteraction({ kind, outcome, routeId }: SubscriptionData<'interactionDispatched'>) {
+    if (!this.#acceptedInteractionKinds.includes(kind as InteractionKind) || outcome === 'failed') return
 
-    const command = this.commands.get(interaction.commandName)
+    const command = this.commands.get(this.getCommandName(routeId))
+
     if (command) command.count++
   }
 
-  private getRamUsage() {
-    return ((os.totalmem() - os.freemem()) / os.totalmem()) * 100
+  private getCommandName(routeId: string) {
+    const end = routeId.indexOf('/')
+    return end === -1 ? routeId : routeId.slice(0, end)
   }
 
   private getCpuUsage() {
     return this.#osUtils.cpu.usage()
+  }
+
+  private getRamUsage() {
+    return ((os.totalmem() - os.freemem()) / os.totalmem()) * 100
   }
 }

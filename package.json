@@ -5,6 +5,7 @@
     "./packages/*"
   ],
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "build": "tsdown -W",
     "commit": "cz",
