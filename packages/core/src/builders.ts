@@ -3,45 +3,45 @@ import type { StatcordStatsPayload, StatcordChart, StatcordCommand } from './pay
 type RestOrArray<T> = [T[]] | T[]
 
 export class StatcordPayloadBuilder {
-  private readonly payload: StatcordStatsPayload = {}
+  readonly #payload: StatcordStatsPayload = {}
 
   public setGuildCount(guildCount: number): this {
-    this.payload.guildCount = guildCount
+    this.#payload.guildCount = guildCount
     return this
   }
 
   public setShardCount(shardCount: number): this {
-    this.payload.shardCount = shardCount
+    this.#payload.shardCount = shardCount
     return this
   }
 
   public setUserCount(userCount: number): this {
-    this.payload.userCount = userCount
+    this.#payload.userCount = userCount
     return this
   }
 
   public setMemberCount(memberCount: number): this {
-    this.payload.members = memberCount
+    this.#payload.members = memberCount
     return this
   }
 
   public setRamUsage(ramUsage: number): this {
-    this.payload.ramUsage = ramUsage
+    this.#payload.ramUsage = ramUsage
     return this
   }
 
   public setTotalRam(totalRam: number): this {
-    this.payload.totalRam = totalRam
+    this.#payload.totalRam = totalRam
     return this
   }
 
   public setCpuUsage(cpuUsage: number): this {
-    this.payload.cpuUsage = cpuUsage
+    this.#payload.cpuUsage = cpuUsage
     return this
   }
 
   public build(): StatcordStatsPayload {
-    return this.payload
+    return this.#payload
   }
 
   // Overloaded methods for setting custom charts and top commands
@@ -49,8 +49,7 @@ export class StatcordPayloadBuilder {
   public setCustomCharts(...customCharts: StatcordChart[]): this
 
   public setCustomCharts(...charts: RestOrArray<StatcordChart>): this {
-    this.payload.customCharts =
-      charts.length === 1 && Array.isArray(charts[0]) ? charts[0] : (charts as StatcordChart[])
+    this.#payload.customCharts = this.#unloadRestOrArray(charts)
     return this
   }
 
@@ -58,9 +57,12 @@ export class StatcordPayloadBuilder {
   public setTopCommands(...topCommands: StatcordCommand[]): this
 
   public setTopCommands(...commands: RestOrArray<StatcordCommand>): this {
-    this.payload.topCommands =
-      commands.length === 1 && Array.isArray(commands[0]) ? commands[0] : (commands as StatcordCommand[])
+    this.#payload.topCommands = this.#unloadRestOrArray(commands)
     return this
+  }
+
+  #unloadRestOrArray<T>(items: RestOrArray<T>): T[] {
+    return items.length === 1 && Array.isArray(items[0]) ? items[0] : (items as T[])
   }
 }
 

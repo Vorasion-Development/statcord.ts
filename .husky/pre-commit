@@ -1,0 +1,16 @@
+#!/bin/sh
+
+echo "Formatting..."
+bun format
+
+echo "Running pre-commit checks..."
+bun check
+
+echo
+echo "Pre-commit checks completed."
+echo
+
+# Formatting lmao.
+echo
+echo "----------------------------------------"
+echo

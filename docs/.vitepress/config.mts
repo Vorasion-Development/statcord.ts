@@ -1,6 +1,6 @@
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
-import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
 import { withMermaid as defineConfig } from 'vitepress-mermaid-viewer'
+import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
 
 import typedocSidebar from '../api/typedoc-sidebar.json' with { type: 'json' }
 

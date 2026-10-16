@@ -14,7 +14,6 @@
   "out": "api",
   "plugin": [
     "typedoc-plugin-markdown",
-    "typedoc-plugin-coverage",
     "typedoc-plugin-llms-txt",
     "typedoc-plugin-mdn-links",
     "typedoc-vitepress-theme",

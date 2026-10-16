@@ -10,7 +10,7 @@ export default defineConfig({
     environment: 'node',
     globals: true,
     passWithNoTests: true,
-        reporters: ['html', ...configDefaults.reporters],
+    reporters: ['html', ...configDefaults.reporters],
     testTimeout: Time.Minute,
     typecheck: {
       enabled: true,

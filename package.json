@@ -1,21 +1,27 @@
 {
   "name": "@statcord-ts/monorepo",
   "private": true,
+  "license": "MIT",
   "workspaces": [
     "./packages/*"
   ],
   "type": "module",
-  "license": "MIT",
   "scripts": {
     "build": "tsdown -W",
+    "check": "bun run typecheck && bun run lint && bun run format:check",
     "commit": "cz",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
     "docs:api": "typedoc && bun run move-api.ts",
     "docs:dev": "bun run docs:api && vitepress dev docs",
     "docs:build": "bun run docs:api && vitepress build docs",
     "docs:preview": "vitepress preview docs",
+    "lint": "oxlint --type-aware",
+    "lint:fix": "oxlint --type-aware --fix",
     "prepare": "husky",
     "test": "vitest --ui",
-    "test:coverage": "vitest --ui --coverage"
+    "test:coverage": "vitest --ui --coverage",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@arethetypeswrong/core": "^0.18.5",
@@ -37,12 +43,13 @@
     "mermaid": "^12.2.0",
     "oxfmt": "^0.73.0",
     "oxlint": "^1.88.0",
+    "oxlint-tsgolint": "^7.0.2004",
+    "picocolors": "^1.1.1",
     "publint": "^0.3.25",
     "socket": "^1.8.2",
     "taze": "^21.3.0",
     "tsdown": "^0.23.1",
     "typedoc": "^0.28.20",
-    "typedoc-plugin-coverage": "^4.0.3",
     "typedoc-plugin-llms-txt": "^0.1.2",
     "typedoc-plugin-markdown": "^4.14.0",
     "typedoc-plugin-mdn-links": "^5.1.1",
